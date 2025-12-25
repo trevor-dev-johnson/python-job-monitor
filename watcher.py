@@ -5,10 +5,6 @@ from datetime import datetime
 from emailer import send_email
 from config import KEYWORDS
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
