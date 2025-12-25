@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Stripe",
+    "url": "https://stripe.com/jobs/search",
+    "keywords": ["backend", "software engineer", "python"]
+  },
+  {
+    "name": "Cloudflare",
+    "url": "https://www.cloudflare.com/careers/jobs/",
+    "keywords": ["backend", "platform", "python"]
+  },
+  {
+    "name": "Datadog",
+    "url": "https://www.datadoghq.com/careers/",
+    "keywords": ["software engineer", "backend"]
+  }
+]
