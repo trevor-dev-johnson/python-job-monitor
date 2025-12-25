@@ -31,4 +31,4 @@ jobs:
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: |
-          python job_alert.py
+          python watcher.py
