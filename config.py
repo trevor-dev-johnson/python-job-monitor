@@ -14,3 +14,5 @@ SMTP_SERVER = os.getenv("SMTP_SERVER")
 SMTP_PORT = int(os.getenv("SMTP_PORT"))
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 
+print("SMTP_SERVER =", SMTP_SERVER)
+print("SMTP_PORT =", SMTP_PORT)
