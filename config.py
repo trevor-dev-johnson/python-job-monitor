@@ -8,6 +8,8 @@ KEYWORDS = [
     "platform",
 ]
 
+SEND_HEARTBEAT = True
+
 EMAIL_FROM = os.getenv("EMAIL_FROM")
 EMAIL_TO = os.getenv("EMAIL_TO")
 SMTP_SERVER = os.getenv("SMTP_SERVER")

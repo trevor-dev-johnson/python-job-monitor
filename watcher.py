@@ -24,7 +24,10 @@ def save_seen(seen):
 
 
 def main():
+    print("🚀 Job watcher started")
+
     seen = load_seen()
+    print(f"Loaded {len(seen)} previously seen jobs")
 
     with open(COMPANIES_FILE, "r") as f:
         companies = json.load(f)
@@ -42,7 +45,18 @@ def main():
                         f"{company['name']} — {job['title']}\n{job['url']}"
                     )
 
+    if not new_matches:
+        print("ℹ️ No new matching jobs found")
+
+        if SEND_HEARTBEAT:
+            send_email(
+                subject="📡 Job Monitor Ran — No Matches Today",
+                body="The job monitor ran successfully but found no new matching roles today."
+            )
+
+
     if new_matches:
+        print(f"📬 Sending email with {len(new_matches)} jobs")
         body = "\n\n".join(new_matches)
         send_email(
             subject="🧠 New Backend / Python Jobs Found",
@@ -50,6 +64,8 @@ def main():
         )
 
     save_seen(seen)
+    print("✅ Job watcher finished successfully")
+
 
 
 if __name__ == "__main__":
