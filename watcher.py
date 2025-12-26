@@ -10,16 +10,25 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0"
 }
 
-def load_seen():
-    try:
-        with open("seen_jobs.json", "r") as f:
-            return set(json.load(f))
-    except FileNotFoundError:
+SEEN_FILE = "seen_jobs.json"
+
+def load_seen() -> set[str]:
+    if not os.path.exists(SEEN_FILE):
         return set()
 
-def save_seen(seen):
-    with open("seen_jobs.json", "w") as f:
-        json.dump(list(seen), f, indent=2)
+    try:
+        with open(SEEN_FILE, "r", encoding="utf-8") as f:
+            raw = f.read().strip()
+            if not raw:
+                return set()
+            data = json.loads(raw)
+            return set(data) if isinstance(data, list) else set()
+    except (json.JSONDecodeError, OSError):
+        return set()
+
+def save_seen(seen: set[str]) -> None:
+    with open(SEEN_FILE, "w", encoding="utf-8") as f:
+        json.dump(sorted(seen), f, indent=2)
 
 def job_matches(text: str) -> bool:
     text = text.lower()
