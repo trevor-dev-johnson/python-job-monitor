@@ -1,7 +1,7 @@
 import json
 import os
 from emailer import send_email
-from config import KEYWORDS
+from config import KEYWORDS, SEND_HEARTBEAT
 
 COMPANIES_FILE = "companies.json"
 SEEN_FILE = "seen_jobs.json"
