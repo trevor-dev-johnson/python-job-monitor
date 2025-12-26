@@ -1,6 +1,13 @@
 import smtplib
 from email.message import EmailMessage
-from config import EMAIL_FROM, EMAIL_TO, SMTP_SERVER, SMTP_PORT, SMTP_PASSWORD
+
+from config import (
+    EMAIL_FROM,
+    EMAIL_TO,
+    SMTP_SERVER,
+    SMTP_PORT,
+    SMTP_PASSWORD,
+)
 
 def send_email(subject: str, body: str):
     msg = EmailMessage()
@@ -9,7 +16,7 @@ def send_email(subject: str, body: str):
     msg["Subject"] = subject
     msg.set_content(body)
 
-    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30) as server:
         server.starttls()
         server.login(EMAIL_FROM, SMTP_PASSWORD)
         server.send_message(msg)
