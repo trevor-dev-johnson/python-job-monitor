@@ -2,6 +2,7 @@ import json
 import os
 from emailer import send_email
 from config import KEYWORDS, SEND_HEARTBEAT
+from job_sources.greenhouse import fetch_greenhouse_jobs
 
 COMPANIES_FILE = "companies.json"
 SEEN_FILE = "seen_jobs.json"
@@ -35,7 +36,12 @@ def main():
     new_matches = []
 
     for company in companies:
-        for job in company.get("jobs", []):
+        if company["provider"] == "greenhouse":
+            jobs = fetch_greenhouse_jobs(company["board"])
+        else:
+            continue
+    
+        for job in jobs:
             title = job["title"].lower()
             if any(keyword in title for keyword in KEYWORDS):
                 job_id = f"{company['name']}::{job['title']}::{job['url']}"

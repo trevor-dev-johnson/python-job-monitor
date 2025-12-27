@@ -1,17 +1,22 @@
 [
   {
     "name": "Stripe",
-    "url": "https://stripe.com/jobs/search",
-    "keywords": ["backend", "software engineer", "python"]
+    "provider": "greenhouse",
+    "board": "stripe"
   },
   {
     "name": "Cloudflare",
-    "url": "https://www.cloudflare.com/careers/jobs/",
-    "keywords": ["backend", "platform", "python"]
+    "provider": "greenhouse",
+    "board": "cloudflare"
   },
   {
     "name": "Datadog",
-    "url": "https://www.datadoghq.com/careers/",
-    "keywords": ["software engineer", "backend"]
+    "provider": "greenhouse",
+    "board": "datadog"
+  },
+  {
+    "name": "OpenAI",
+    "provider": "greenhouse",
+    "board": "openai"
   }
 ]
