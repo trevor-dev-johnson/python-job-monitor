@@ -11,11 +11,13 @@ SEEN_FILE = "seen_jobs.json"
 def load_seen():
     if not os.path.exists(SEEN_FILE):
         return set()
+
     try:
         with open(SEEN_FILE, "r") as f:
             data = json.load(f)
             return set(data)
-    except json.JSONDecodeError:
+    except (json.JSONDecodeError, ValueError):
+        # Handles empty or corrupted file
         return set()
 
 
@@ -36,45 +38,52 @@ def main():
     new_matches = []
 
     for company in companies:
-        if company["provider"] == "greenhouse":
-            jobs = fetch_greenhouse_jobs(company["board"])
-        else:
+        name = company["name"]
+        provider = company.get("provider")
+
+        print(f"🔍 Checking {name}")
+
+        try:
+            if provider == "greenhouse":
+                jobs = fetch_greenhouse_jobs(company["board"])
+            else:
+                print(f"⏭ Skipping {name} (provider not implemented: {provider})")
+                continue
+        except Exception as e:
+            print(f"⚠️ Failed to fetch jobs for {name}: {e}")
             continue
-    
+
         for job in jobs:
             title = job["title"].lower()
+
             if any(keyword in title for keyword in KEYWORDS):
-                job_id = f"{company['name']}::{job['title']}::{job['url']}"
+                job_id = f"{name}::{job['title']}::{job['url']}"
+
                 if job_id not in seen:
                     seen.add(job_id)
                     new_matches.append(
-                        f"{company['name']} — {job['title']}\n{job['url']}"
+                        f"{name} — {job['title']}\n{job['url']}"
                     )
 
-    if not new_matches:
+    if new_matches:
+        print(f"📬 Sending email with {len(new_matches)} new jobs")
+
+        body = "\n\n".join(new_matches)
+        send_email(
+            subject="🧠 New Backend / Python Jobs Found",
+            body=body,
+        )
+    else:
         print("ℹ️ No new matching jobs found")
 
-    if SEND_HEARTBEAT and not new_matches:
-        try:
-            send_email(
-                subject="📡 Job Monitor Ran — No Matches Today",
-                body="The job watcher ran successfully but found no new matching jobs."
-            )
-        except Exception as e:
-            print(f"⚠️ Heartbeat email failed: {e}")
-
-
-    if new_matches:
-        print(f"📬 Sending email with {len(new_matches)} jobs")
-        body = "\n\n".join(sorted(new_matches))
-
-        try:
-            send_email(
-                subject="🧠 New Backend / Python Jobs Found",
-                body=body,
-            )
-        except Exception as e:
-            print(f"❌ Failed to send job alert email: {e}")
+        if SEND_HEARTBEAT:
+            try:
+                send_email(
+                    subject="📡 Job Monitor Ran — No Matches Today",
+                    body="The job watcher ran successfully but found no new matching jobs."
+                )
+            except Exception as e:
+                print(f"⚠️ Heartbeat email failed: {e}")
 
     save_seen(seen)
     print("✅ Job watcher finished successfully")

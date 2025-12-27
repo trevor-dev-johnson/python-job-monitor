@@ -14,9 +14,20 @@
     "provider": "greenhouse",
     "board": "datadog"
   },
+
   {
     "name": "OpenAI",
-    "provider": "greenhouse",
+    "provider": "ashby",
     "board": "openai"
+  },
+  {
+    "name": "Phantom",
+    "provider": "ashby",
+    "board": "phantom"
+  },
+  {
+    "name": "Helius",
+    "provider": "ashby",
+    "board": "helius"
   }
 ]
