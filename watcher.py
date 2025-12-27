@@ -48,24 +48,30 @@ def main():
     if not new_matches:
         print("ℹ️ No new matching jobs found")
 
-        if SEND_HEARTBEAT:
+    if SEND_HEARTBEAT and not new_matches:
+        try:
             send_email(
                 subject="📡 Job Monitor Ran — No Matches Today",
-                body="The job monitor ran successfully but found no new matching roles today."
+                body="The job watcher ran successfully but found no new matching jobs."
             )
+        except Exception as e:
+            print(f"⚠️ Heartbeat email failed: {e}")
 
 
     if new_matches:
         print(f"📬 Sending email with {len(new_matches)} jobs")
-        body = "\n\n".join(new_matches)
-        send_email(
-            subject="🧠 New Backend / Python Jobs Found",
-            body=body,
-        )
+        body = "\n\n".join(sorted(new_matches))
+
+        try:
+            send_email(
+                subject="🧠 New Backend / Python Jobs Found",
+                body=body,
+            )
+        except Exception as e:
+            print(f"❌ Failed to send job alert email: {e}")
 
     save_seen(seen)
     print("✅ Job watcher finished successfully")
-
 
 
 if __name__ == "__main__":
