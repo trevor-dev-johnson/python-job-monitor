@@ -1,5 +1,8 @@
 name: Daily Job Alert
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "0 13 * * *" # 8am EST (13 UTC)
