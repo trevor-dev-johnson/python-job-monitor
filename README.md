@@ -1,7 +1,116 @@
-🕵️‍♂️ Python Job MonitorA robust, automated tool built in Python to monitor job boards for new postings. This project helps you stay ahead of the competition by tracking specific roles and locations, ensuring you are notified the moment a new opportunity goes live.🌟 Key FeaturesReal-time Monitoring: Automated scraping of major job platforms.Smart Filtering: Filter by keywords, seniority level, and geographic location.Persistence: Uses a local database to track "seen" jobs, preventing duplicate notifications.Custom Notifications: Supports alerts via Discord Webhooks, Slack, or Email.Stealth Mode: Configured with headless browsing and random user agents to mimic human behavior.🏗️ How It WorksThe application follows a linear pipeline to ensure data integrity and timely updates:Request: The script triggers a browser instance (Selenium) to navigate to the job board.Extraction: Relevant data (Title, Company, Link, Date) is parsed from the HTML.Comparison: The script checks the extracted Job IDs against a local SQLite database.Action: If a Job ID is new, it is saved to the database and a notification is sent.⚙️ Installation & Setup1. Clone & EnvironmentBashgit clone https://github.com/trevor-dev-johnson/python-job-monitor.git
-cd python-job-monitor
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-2. Install DependenciesBashpip install -r requirements.txt
-3. ConfigurationRename the .env.example file to .env and fill in your specific search criteria:VariableDescriptionExampleSEARCH_QUERYThe job title you are looking forBackend EngineerLOCATIONPreferred city or "Remote"Austin, TXINTERVALHow often to check (in minutes)30DISCORD_WEBHOOK(Optional) URL for Discord alertshttps://discord.com/api/webhooks/...🚀 ExecutionTo start the monitor, run the main script from your terminal:Bashpython run_monitor.py
-Note: On the first run, the script will create a jobs.db file automatically. No manual SQL setup is required.🛠️ Roadmap & Future Improvements[ ] Support for multiple job boards (Indeed, Glassdoor).[ ] AI-powered job description summarization.[ ] Integration with OpenAI to auto-generate personalized cover letters.[ ] Web-based dashboard for viewing tracked jobs.🤝 ContributingContributions make the open-source community an amazing place to learn and create.Fork the Project.Create your Feature Branch (git checkout -b feature/AmazingFeature).Commit your Changes (git commit -m 'Add some AmazingFeature').Push to the Branch (git push origin feature/AmazingFeature).Open a Pull Request.📜 LicenseDistributed under the MIT License. See LICENSE for more information.
+# Job Watcher
+
+Job Watcher is an automated Python service that monitors real company job boards for backend-relevant roles and delivers daily email alerts. It runs fully unattended using GitHub Actions, persists state to prevent duplicate notifications, and is designed to be reliable, low-noise, and production-aligned.
+
+This project focuses on automation, correctness, and real-world backend patterns rather than UI or product features.
+
+---
+
+## Features
+
+- Daily automated job monitoring via GitHub Actions
+- Fetches live job data from real company job boards (Greenhouse)
+- Keyword-based role filtering (backend, Python, API, platform, etc.)
+- Persistent state to prevent duplicate notifications
+- Email alerts only when new matching jobs are found
+- Secure secret handling using GitHub Actions secrets
+- Idempotent and fault-tolerant execution
+
+---
+
+## Tech Stack
+
+- Python 3.12
+- Requests – HTTP client
+- GitHub Actions – scheduling and automation
+- SMTP (Gmail) – email delivery
+- JSON – lightweight persistent state
+- Greenhouse API – job data source
+
+---
+
+## How It Works
+
+1. GitHub Actions runs the workflow on a daily schedule.
+2. The watcher fetches job listings from configured company boards.
+3. Job titles are filtered using a defined set of keywords.
+4. New jobs are compared against previously seen jobs.
+5. If new matches exist:
+   - An email is sent with job titles and links.
+   - Seen jobs are persisted back to the repository.
+6. If no new jobs are found, the run completes quietly.
+
+This ensures clean notifications with no repeated alerts.
+
+---
+
+## Project Structure
+
+.
+├── .github/workflows/
+│ └── daily_job_alert.yml
+├── job_sources/
+│ └── greenhouse.py
+├── companies.json
+├── config.py
+├── emailer.py
+├── watcher.py
+├── seen_jobs.json
+├── requirements.txt
+└── README.md
+
+yaml
+Copy code
+
+---
+
+## Configuration
+
+### Keywords
+
+Edit `config.py` to control which roles are matched:
+
+```python
+KEYWORDS = [
+    "backend",
+    "python",
+    "software engineer",
+    "api",
+    "platform"
+]
+Email Settings
+Email credentials are injected securely using GitHub Actions secrets:
+
+EMAIL_FROM
+
+EMAIL_TO
+
+SMTP_SERVER
+
+SMTP_PORT
+
+SMTP_PASSWORD
+
+No credentials are committed to the repository.
+
+Running Locally (Optional)
+bash
+Copy code
+pip install -r requirements.txt
+python watcher.py
+Environment variables must be set locally if testing email delivery.
+
+Automation
+The service runs daily via GitHub Actions using a scheduled workflow.
+State changes to seen_jobs.json are automatically committed back to the repository to prevent duplicate alerts across runs.
+
+Design Goals
+Reliability over features
+
+Clean, idempotent execution
+
+Minimal notification noise
+
+Production-aligned automation patterns
+
+Clear separation of concerns
