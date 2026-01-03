@@ -2,32 +2,149 @@
   {
     "name": "Stripe",
     "provider": "greenhouse",
-    "board": "stripe"
+    "board": "stripe",
+    "category": "fintech",
+    "keywords": ["backend", "api", "platform", "payments"]
   },
   {
     "name": "Cloudflare",
     "provider": "greenhouse",
-    "board": "cloudflare"
+    "board": "cloudflare",
+    "category": "infra",
+    "keywords": ["backend", "platform", "systems"]
   },
   {
     "name": "Datadog",
     "provider": "greenhouse",
-    "board": "datadog"
+    "board": "datadog",
+    "category": "infra",
+    "keywords": ["backend", "platform", "data"]
+  },
+  {
+    "name": "Sentry",
+    "provider": "greenhouse",
+    "board": "sentry",
+    "category": "developer-tools",
+    "keywords": ["backend", "platform", "api"]
+  },
+  {
+    "name": "Plaid",
+    "provider": "greenhouse",
+    "board": "plaid",
+    "category": "fintech",
+    "keywords": ["backend", "api", "payments"]
+  },
+  {
+    "name": "Twilio",
+    "provider": "greenhouse",
+    "board": "twilio",
+    "category": "platform",
+    "keywords": ["backend", "api", "platform"]
+  },
+  {
+    "name": "HashiCorp",
+    "provider": "greenhouse",
+    "board": "hashicorp",
+    "category": "infra",
+    "keywords": ["backend", "systems", "platform"]
+  },
+  {
+    "name": "Notion",
+    "provider": "greenhouse",
+    "board": "notion",
+    "category": "platform",
+    "keywords": ["backend", "platform"]
+  },
+  {
+    "name": "Linear",
+    "provider": "greenhouse",
+    "board": "linear",
+    "category": "developer-tools",
+    "keywords": ["backend", "api", "platform"]
+  },
+  {
+    "name": "Segment",
+    "provider": "greenhouse",
+    "board": "segment",
+    "category": "data",
+    "keywords": ["backend", "data", "platform"]
+  },
+  {
+    "name": "Auth0",
+    "provider": "greenhouse",
+    "board": "auth0",
+    "category": "security",
+    "keywords": ["backend", "platform", "identity"]
+  },
+  {
+    "name": "Circle",
+    "provider": "greenhouse",
+    "board": "circle",
+    "category": "fintech",
+    "keywords": ["backend", "payments", "platform"]
   },
 
   {
     "name": "OpenAI",
     "provider": "ashby",
-    "board": "openai"
+    "board": "openai",
+    "category": "ai",
+    "keywords": ["backend", "platform", "systems"]
   },
   {
     "name": "Phantom",
     "provider": "ashby",
-    "board": "phantom"
+    "board": "phantom",
+    "category": "crypto",
+    "keywords": ["backend", "api", "platform"]
   },
   {
     "name": "Helius",
     "provider": "ashby",
-    "board": "helius"
+    "board": "helius",
+    "category": "crypto",
+    "keywords": ["backend", "platform", "infra"]
+  },
+  {
+    "name": "Solflare",
+    "provider": "ashby",
+    "board": "solflare",
+    "category": "crypto",
+    "keywords": ["backend", "api"]
+  },
+  {
+    "name": "Jupiter",
+    "provider": "ashby",
+    "board": "jupiter",
+    "category": "crypto",
+    "keywords": ["backend", "platform"]
+  },
+  {
+    "name": "Ramp",
+    "provider": "ashby",
+    "board": "ramp",
+    "category": "fintech",
+    "keywords": ["backend", "payments", "platform"]
+  },
+  {
+    "name": "Vercel",
+    "provider": "ashby",
+    "board": "vercel",
+    "category": "developer-tools",
+    "keywords": ["backend", "platform"]
+  },
+  {
+    "name": "Supabase",
+    "provider": "ashby",
+    "board": "supabase",
+    "category": "developer-tools",
+    "keywords": ["backend", "data", "platform"]
+  },
+  {
+    "name": "Railway",
+    "provider": "ashby",
+    "board": "railway",
+    "category": "infra",
+    "keywords": ["backend", "platform", "systems"]
   }
 ]
